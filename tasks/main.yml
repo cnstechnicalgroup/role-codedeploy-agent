@@ -6,12 +6,6 @@
       - ruby-build
     update_cache: yes
 
-- name: Create ruby symlink
-  file:
-    path: /usr/bin/ruby
-    src: /local/ruby/bin/ruby
-    state: link
-
 - name: Check if codedeploy-agent is installed
   command: dpkg-query -W codedeploy-agent
   register: codedeploy_agent_check_deb
