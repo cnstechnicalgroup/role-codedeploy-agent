@@ -1,0 +1,39 @@
+---
+- name: Install pre-requisites
+  apt:
+    name:
+      - rbenv
+      - ruby-build
+    update_cache: yes
+
+- name: Create ruby symlink
+  file:
+    path: /usr/bin/ruby
+    src: /local/ruby/bin/ruby
+    state: link
+
+- name: Check if codedeploy-agent is installed
+  command: dpkg-query -W codedeploy-agent
+  register: codedeploy_agent_check_deb
+  failed_when: codedeploy_agent_check_deb.rc > 1
+  changed_when: codedeploy_agent_check_deb.rc == 1
+
+- name: Download codedeploy-agent
+  get_url:
+    url: "http://aws-codedeploy-eu-west-1.s3-eu-west-1.amazonaws.com/latest/codedeploy-agent_all.deb"
+    dest: "/tmp/"
+
+- name: Install codedeploy-agent
+  command: "dpkg --force-depends -i /tmp/codedeploy-agent_all.deb"
+  become: yes
+  when: codedeploy_agent_check_deb.rc == 1
+
+- name: Cleanup codedeploy-agent deb
+  file:
+    path: "/tmp/codedeploy-agent_all.deb"
+    state: absent
+  become: yes
+
+- name: Start codedeploy-agent at boot
+  command: update-rc.d codedeploy-agent enable
+  become: yes
