@@ -27,19 +27,12 @@
     dest: "/etc/codedeploy-agent/conf/codedeployagent.yml"
   become: yes
 
-#- name: Create codedeploy-agent systemd service script
-#  copy:
-#    src: "etc-init.d-codedeploy-agent.service"
-#    dest: "/etc/init.d/codedeploy-agent.service"
-#    mode: 0744
-#  become: yes
-#
-#- name: Create codedeploy-agent init.d script
-#  copy:
-#    src: "etc-init.d-codedeploy-agent.service"
-#    dest: "/etc/init.d/codedeploy-agent"
-#    mode: 0744
-#  become: yes
+- name: Create codedeploy-agent init script
+  copy:
+    src: "etc-init.d-codedeploy-agent.service"
+    dest: "/etc/init.d/codedeploy-agent"
+    mode: 0744
+  become: yes
 
 - name: Start codedeploy-agent at boot
   command: update-rc.d codedeploy-agent enable
