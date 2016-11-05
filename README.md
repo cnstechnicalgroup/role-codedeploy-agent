@@ -1,12 +1,12 @@
 Role: cns-codedeploy-agent
 ========
 
-This role installs and configures the AWS codedeploy agent for a debian EC2 instance.
+This role installs and configures the AWS codedeploy agent for a Debian 8.* EC2 instance.
 
 Requirements
 ------------
 
-Nothing, it runs out of the box.
+Debian 8.*
 
 Role Variables
 --------------
@@ -30,4 +30,4 @@ GPLv2
 Author Information
 ------------------
 
-* [Sam Morrison](https://www.twitter.com/samcns)
+* Sam Morrison
