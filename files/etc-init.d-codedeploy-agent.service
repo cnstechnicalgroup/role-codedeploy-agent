@@ -1,0 +1,10 @@
+[Unit]
+Description=CodeDeploy Agent
+
+[Service]
+Type=forking
+User=root
+ExecStart=/etc/init.d/codedeploy-agent start
+
+[Install]
+WantedBy=multi-user.target
