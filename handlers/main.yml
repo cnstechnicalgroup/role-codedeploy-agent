@@ -1,0 +1,3 @@
+---
+- name: restart codedeploy
+  service: name=codedeploy-agent state=restarted
