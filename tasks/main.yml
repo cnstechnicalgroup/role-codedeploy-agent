@@ -5,6 +5,12 @@
       - ruby2.1
     update_cache: yes
 
+- name: Create ruby symlink
+  file:
+    path: /usr/bin/ruby
+    src: /usr/bin/ruby2.1
+    state: link
+
 - name: Download codedeploy-agent
   get_url:
     url: "http://aws-codedeploy-eu-west-1.s3-eu-west-1.amazonaws.com/latest/install"
@@ -12,7 +18,7 @@
     mode: 0744
 
 - name: Install codedeploy-agent
-  command: "/tmp/install auto"
+  command: "/tmp/install deb"
   become: yes
 
 - name: Cleanup codedeploy-agent deb
@@ -21,17 +27,15 @@
     state: absent
   become: yes
 
-- name: Create codedeploy-agent config
-  copy:
-    src: "etc-codedeploy-agent-conf-codedeployagent.yml"
-    dest: "/etc/codedeploy-agent/conf/codedeployagent.yml"
-  become: yes
-
 - name: Create codedeploy-agent init script
   copy:
     src: "etc-init.d-codedeploy-agent.service"
-    dest: "/etc/init.d/codedeploy-agent"
+    dest: "/etc/systemd/system/codedeploy-agent.service"
     mode: 0744
+  become: yes
+
+- name: Reload systemd
+  command: systemctl daemon-reload
   become: yes
   notify:
     - restart codedeploy
