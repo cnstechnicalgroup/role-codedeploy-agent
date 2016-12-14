@@ -1,0 +1,10 @@
+---
+galaxy_info:
+  author: cnstechnicalgroup
+  description: Installs and configures the AWS codedeploy agent for a Debian 8.* EC2 instance.
+  company: CNS Technical Group, Inc.
+  license: GPL2
+  min_ansible_version: 1.8
+  categories:
+  - system, cloud, deployment
+dependencies: []
