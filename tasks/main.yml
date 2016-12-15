@@ -34,6 +34,10 @@
     mode: 0744
   become: yes
 
+- name: Set codedeploy-agent to start on boot
+  command: systemctl enable /etc/systemd/system/codedeploy-agent.service
+  become: yes
+
 - name: Reload systemd
   command: systemctl daemon-reload
   become: yes
