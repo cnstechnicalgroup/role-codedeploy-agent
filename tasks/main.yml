@@ -18,7 +18,7 @@
     mode: 0744
 
 - name: Install codedeploy-agent
-  command: "/tmp/install deb"
+  command: "/tmp/install auto"
   become: yes
 
 - name: Cleanup codedeploy-agent deb
