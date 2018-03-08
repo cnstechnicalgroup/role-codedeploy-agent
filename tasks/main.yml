@@ -2,13 +2,13 @@
 - name: Install pre-requisites
   apt:
     name:
-      - ruby2.1
+      - ruby2.3
     update_cache: yes
 
 - name: Create ruby symlink
   file:
     path: /usr/bin/ruby
-    src: /usr/bin/ruby2.1
+    src: /usr/bin/ruby2.3
     state: link
 
 - name: Download codedeploy-agent
